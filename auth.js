@@ -8,7 +8,13 @@
   try{
    if(!config.clerkPublishableKey)throw Error('Missing Clerk publishable key in config.js');
 
-const clerkDomain = atob(config.clerkPublishableKey.split('_')[2]).replace(/\$$/, '');
+
+const encodedDomain = config.clerkPublishableKey
+  .replace(/^pk_(test|live)_/, '');
+
+const clerkDomain = atob(encodedDomain)
+  .replace(/\$$/, '');
+
 
 async function loadScript(url, publishableKey) {
   return new Promise((resolve, reject) => {
