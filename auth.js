@@ -7,7 +7,7 @@
   retry.hidden=true;status.textContent='Loading secure sign-in…';
   try{
    if(!config.clerkPublishableKey)throw Error('Missing Clerk publishable key in config.js');
-   if(!window.Clerk){await new Promise((resolve,reject)=>{const s=document.createElement('script');s.src='https://js.clerk.com/v5/clerk.browser.js';s.crossOrigin='anonymous';s.setAttribute('data-clerk-publishable-key',config.clerkPublishableKey);s.onload=resolve;s.onerror=()=>reject(Error('Could not load Clerk SDK'));document.head.appendChild(s)})}
+   if(!window.Clerk){await new Promise((resolve,reject)=>{const s=document.createElement('script');s.src = 'https://cdn.jsdelivr.net/npm/@clerk/clerk-js@5/dist/clerk.browser.js';s.crossOrigin='anonymous';s.setAttribute('data-clerk-publishable-key',config.clerkPublishableKey);s.onload=resolve;s.onerror=()=>reject(Error('Could not load Clerk SDK'));document.head.appendChild(s)})}
    await window.Clerk.load();
    if(!window.Clerk.user){status.textContent='Sign in to your private LifeOS';window.Clerk.mountSignIn(document.getElementById('clerkSignIn'),{routing:'hash'});window.Clerk.addListener(({user})=>{if(user)location.reload()});return}
    window.Clerk.unmountSignIn(document.getElementById('clerkSignIn'));
