@@ -1,5 +1,6 @@
-
+// Public frontend settings only. Never put API secrets here.
+// Replace the Worker URL with the EXACT address shown on your Cloudflare Worker Overview.
 window.LIFEOS_CONFIG = {
-  clerkPublishableKey: 'YOUR_EXISTING_PK_TEST_KEY',
-  workerUrl: 'https://lifeos-ai.tanneruparitosh24bec54.workers.dev'
+  clerkPublishableKey: 'pk_test_dGVhY2hpbmctZHJ1bS04MTk1LmNsZXJrLmFjY291bnRzLmRldiQ',
+  workerUrl: 'https://Rlifeos-ai.tanneruparitosh24bec54.workers.dev'
 };

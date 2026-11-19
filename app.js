@@ -66,17 +66,18 @@ if('serviceWorker'in navigator&&location.protocol!=='file:')navigator.serviceWor
 /* Cloud sync extension: one-user revisioned snapshot. Never silently overwrite on conflict. */
 
 // Multi-user cloud sync. Cloud state is authoritative on login; local cache is user-scoped.
-let cloudRevision=window.lifeosCloudRevision||0, cloudDirty=false, cloudTimer=null, cloudBusy=false;
-function cloudChanged(){cloudDirty=true;clearTimeout(cloudTimer);cloudTimer=setTimeout(()=>{if(navigator.onLine)cloudPush(true)},1200)}
+let cloudRevision=window.lifeosCloudRevision||0, cloudDirty=!!window.lifeosHasPendingChanges, cloudTimer=null, cloudBusy=false;
+const CLOUD_DIRTY_KEY='lifeos.cloud.dirty.'+window.lifeosUserId;
+function cloudChanged(){localStorage.setItem(CLOUD_DIRTY_KEY,'1');cloudDirty=true;clearTimeout(cloudTimer);cloudTimer=setTimeout(()=>{if(navigator.onLine)cloudPush(true)},1200)}
 async function cloudRequest(method,payload){return window.lifeosApi('/sync',method,payload)}
 async function cloudPull(){
  if(cloudDirty&&!confirm('You have unsynced local changes. Downloading may replace them. Continue?'))return;
- try{const remote=await cloudRequest('GET');db=remote.data?{...blank(),...remote.data}:blank();cloudRevision=remote.revision||0;cloudDirty=false;localStorage.setItem(KEY,JSON.stringify(db));render();alert('Cloud records downloaded.')}catch(e){alert('Download failed: '+e.message)}
+ try{const remote=await cloudRequest('GET');db=remote.data?{...blank(),...remote.data}:blank();cloudRevision=remote.revision||0;cloudDirty=false;localStorage.removeItem(CLOUD_DIRTY_KEY);localStorage.setItem(KEY,JSON.stringify(db));render();alert('Cloud records downloaded.')}catch(e){alert('Download failed: '+e.message)}
 }
 async function cloudPush(silent=false){
  if(cloudBusy)return;if(!cloudDirty){if(!silent)alert('All changes are synced.');return}
  cloudBusy=true;const snapshot=JSON.stringify(db);
- try{const res=await cloudRequest('PUT',{revision:cloudRevision,data:JSON.parse(snapshot)});cloudRevision=res.revision;cloudDirty=JSON.stringify(db)!==snapshot;if(cloudDirty)cloudChanged();if(!silent)alert('Saved to LifeOS Cloud.')}catch(e){cloudDirty=true;if(!silent||e.status===409)alert('Cloud sync failed: '+e.message+'\nYour local changes are still on this device. Export a backup before resolving a conflict.')}finally{cloudBusy=false}
+ try{const res=await cloudRequest('PUT',{revision:cloudRevision,data:JSON.parse(snapshot)});cloudRevision=res.revision;cloudDirty=JSON.stringify(db)!==snapshot;if(!cloudDirty)localStorage.removeItem(CLOUD_DIRTY_KEY);if(cloudDirty)cloudChanged();if(!silent)alert('Saved to LifeOS Cloud.')}catch(e){cloudDirty=true;localStorage.setItem(CLOUD_DIRTY_KEY,'1');if(!silent||e.status===409)alert('Cloud sync failed: '+e.message+'\nYour local changes are still on this device. Export a backup before resolving a conflict.')}finally{cloudBusy=false}
 }
 window.addEventListener('online',()=>{if(cloudDirty)cloudPush(true)});
 const previousSettingsView=settingsView;
