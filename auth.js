@@ -7,8 +7,40 @@
   retry.hidden=true;status.textContent='Loading secure sign-in…';
   try{
    if(!config.clerkPublishableKey)throw Error('Missing Clerk publishable key in config.js');
-   if(!window.Clerk){await new Promise((resolve,reject)=>{const s=document.createElement('script');s.src = 'https://cdn.jsdelivr.net/npm/@clerk/clerk-js@5/dist/clerk.browser.js';s.crossOrigin='anonymous';s.setAttribute('data-clerk-publishable-key',config.clerkPublishableKey);s.onload=resolve;s.onerror=()=>reject(Error('Could not load Clerk SDK'));document.head.appendChild(s)})}
-   await window.Clerk.load();
+
+const clerkDomain = atob(config.clerkPublishableKey.split('_')[2]).replace(/\$$/, '');
+
+async function loadScript(url, publishableKey) {
+  return new Promise((resolve, reject) => {
+    const script = document.createElement('script');
+    script.src = url;
+    script.crossOrigin = 'anonymous';
+
+    if (publishableKey) {
+      script.setAttribute('data-clerk-publishable-key', publishableKey);
+    }
+
+    script.onload = resolve;
+    script.onerror = () => reject(new Error('Failed to load Clerk: ' + url));
+    document.head.appendChild(script);
+  });
+}
+
+if (!window.Clerk) {
+  await loadScript(
+    `https://${clerkDomain}/npm/@clerk/ui@1/dist/ui.browser.js`
+  );
+
+  await loadScript(
+    `https://${clerkDomain}/npm/@clerk/clerk-js@6/dist/clerk.browser.js`,
+    config.clerkPublishableKey
+  );
+}
+
+await window.Clerk.load({
+  ui: { ClerkUI: window.__internal_ClerkUICtor }
+});
+
    if(!window.Clerk.user){status.textContent='Sign in to your private LifeOS';window.Clerk.mountSignIn(document.getElementById('clerkSignIn'),{routing:'hash'});window.Clerk.addListener(({user})=>{if(user)location.reload()});return}
    window.Clerk.unmountSignIn(document.getElementById('clerkSignIn'));
    window.lifeosUserId=window.Clerk.user.id;
