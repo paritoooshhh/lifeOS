@@ -1,3 +1,7 @@
+# LifeOS Midnight — v2.0 Foundation
+
+**Important:** This release has a companion Cloudflare Worker upgrade. Read [LIFEOS-V2-DEPLOY-GUIDE.md](LIFEOS-V2-DEPLOY-GUIDE.md) before deploying.
+
 # LifeOS — local-first personal dashboard
 
 ## Run locally

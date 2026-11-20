@@ -28,3 +28,8 @@ body.light{--bg:#f5f6f8;--panel:#ffffff;--panel2:#eef1f6;--text:#202736;--muted:
 
 /* v1.2 interaction polish */
 :root{scroll-behavior:smooth}button,.card,.focus-tile,.life-ring{transition:transform .22s ease,background-color .22s ease,border-color .22s ease,box-shadow .22s ease,opacity .22s ease}button:active{transform:scale(.97)}button:focus-visible,input:focus-visible,textarea:focus-visible{outline:2px solid #f5b653;outline-offset:3px}.life-ring-button{border:0;cursor:pointer;padding:0;appearance:none;background:conic-gradient(var(--accent,#f5b653) var(--ring),rgba(139,155,178,.16) 0)}.life-ring-button:hover{transform:scale(1.045);filter:brightness(1.07)}.life-ring-button .life-ring-inner{pointer-events:none}.life-home .card,.life-home .focus-tile{animation:lifeRise .42s ease both}.life-home .card:nth-child(2){animation-delay:.06s}.life-home .card:nth-child(3){animation-delay:.1s}@keyframes lifeRise{from{opacity:0;transform:translateY(10px)}to{opacity:1;transform:translateY(0)}}.copilot-prompts{display:flex;gap:8px;flex-wrap:wrap;margin:12px 0 18px}.reschedule-card{margin:0 0 20px;border:1px solid rgba(245,182,83,.42)}.reschedule-card .formgrid{margin:16px 0}.life-ring-button small{font-size:10px}@media(hover:hover){.life-home .card:hover,.life-home .focus-tile:hover{transform:translateY(-2px)}}@media(prefers-reduced-motion:reduce){:root{scroll-behavior:auto}*,*:before,*:after{animation-duration:.01ms!important;transition-duration:.01ms!important}}
+
+/* LifeOS 2.0 Foundation: paused Shared Spaces is retained in data, not surfaced in navigation. */
+#sharedNav[hidden]{display:none!important}
+.life-focus-grid .focus-tile strong{font-variant-numeric:tabular-nums}
+.ai-suggestion ul{padding-left:1.2rem;margin:.6rem 0}
