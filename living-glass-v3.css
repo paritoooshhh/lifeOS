@@ -1,0 +1,32 @@
+/* LifeOS v3 Living Glass — Balanced translucent surfaces over original Living Nature art. */
+body[data-lifeos-theme]{--lg-fill:color-mix(in srgb,var(--panel) 84%,transparent);--lg-strong:color-mix(in srgb,var(--panel) 92%,transparent);--lg-edge:color-mix(in srgb,var(--line) 68%,var(--panel) 32%);--lg-shadow:0 15px 38px color-mix(in srgb,var(--text) 10%,transparent),inset 0 1px 0 color-mix(in srgb,var(--panel) 62%,white 38%)}
+body[data-lifeos-theme="night"]{--lg-fill:color-mix(in srgb,var(--panel) 87%,transparent);--lg-strong:color-mix(in srgb,var(--panel) 94%,transparent);--lg-shadow:0 18px 44px #060e2552,inset 0 1px 0 #ffffff23}
+body[data-lifeos-theme] .life-progress-card,body[data-lifeos-theme] .life-next-card{background:var(--lg-strong);border:1px solid var(--lg-edge);border-top:3px solid color-mix(in srgb,var(--accent) 62%,var(--panel));box-shadow:var(--lg-shadow)}
+body[data-lifeos-theme] .life-welcome{background:linear-gradient(120deg,var(--lg-strong),color-mix(in srgb,var(--panel2) 66%,transparent));border:1px solid var(--lg-edge);box-shadow:var(--lg-shadow)}
+body[data-lifeos-theme] .card:not(.life-progress-card):not(.life-next-card):not(.life-welcome){background:color-mix(in srgb,var(--panel) 97%,transparent)}
+body[data-lifeos-theme] .life-progress-card::after,body[data-lifeos-theme] .life-next-card::after{opacity:.13}
+body[data-lifeos-theme] .top,body[data-lifeos-theme] .bottom{background:var(--lg-fill);border-color:var(--lg-edge);box-shadow:var(--lg-shadow)}
+body[data-lifeos-theme] .iconbtn{background:var(--lg-fill);border-color:var(--lg-edge);box-shadow:inset 0 1px 0 #ffffff3b}
+body[data-lifeos-theme] .nature-sidebar-note,body[data-lifeos-theme] .v3-copilot-card{background:var(--lg-strong);border:1px solid var(--lg-edge)}
+body[data-lifeos-theme] dialog.v3-dialog,body[data-lifeos-theme] dialog.nature-theme-dialog{background:var(--lg-strong);color:var(--text);border:1px solid var(--lg-edge);box-shadow:0 26px 82px #060c2155}
+body[data-lifeos-theme] dialog.v3-dialog::backdrop,body[data-lifeos-theme] dialog.nature-theme-dialog::backdrop{background:#10203996;backdrop-filter:blur(7px);-webkit-backdrop-filter:blur(7px)}
+@supports(backdrop-filter:blur(1px)){body[data-lifeos-theme] .top,body[data-lifeos-theme] .bottom,body[data-lifeos-theme] dialog.v3-dialog,body[data-lifeos-theme] dialog.nature-theme-dialog{backdrop-filter:blur(18px) saturate(1.22);-webkit-backdrop-filter:blur(18px) saturate(1.22)}body[data-lifeos-theme] .life-progress-card,body[data-lifeos-theme] .life-next-card,body[data-lifeos-theme] .life-welcome,body[data-lifeos-theme] .nature-sidebar-note{backdrop-filter:blur(9px);-webkit-backdrop-filter:blur(9px)}}
+@media(min-width:1000px){body[data-lifeos-theme]:has(#app:not([hidden])) .top{background:var(--lg-strong);border-right:1px solid var(--lg-edge)}body[data-lifeos-theme]:has(#app:not([hidden])) .bottom{background:transparent;box-shadow:none;backdrop-filter:none;-webkit-backdrop-filter:none}}
+@media(max-width:999px){body[data-lifeos-theme] .bottom{background:var(--lg-strong);box-shadow:0 12px 36px color-mix(in srgb,var(--text) 13%,transparent)}body[data-lifeos-theme] .top{background:var(--lg-strong)}}
+#app > .lg-ambient-layer{position:fixed;inset:0;z-index:0;pointer-events:none;overflow:hidden;contain:layout paint}
+#app > main{position:relative;z-index:1}
+.lg-ambient-element{position:absolute;will-change:transform;pointer-events:none}
+.lg-leaf{top:15%;right:-30px;width:180px;height:200px;background:var(--nature-detail) center/contain no-repeat;opacity:.13}
+.lg-wave{bottom:10%;left:-12%;width:72%;height:170px;border:2px solid var(--accent);border-radius:50%;opacity:.08}
+.lg-sun{top:13%;right:-80px;width:320px;height:320px;background:var(--nature-detail) center/contain no-repeat;opacity:.16}
+.lg-star{position:absolute;background:var(--accent-light);border-radius:50%;box-shadow:0 0 6px var(--accent-light);opacity:.45}
+body:not([data-lifeos-theme="morning"]) .lg-leaf,body:not([data-lifeos-theme="afternoon"]) .lg-wave,body:not([data-lifeos-theme="evening"]) .lg-sun,body:not([data-lifeos-theme="night"]) .lg-star{display:none}
+.lg-motion-controls{display:flex;gap:12px;flex-wrap:wrap;justify-content:space-between;align-items:center;border-top:1px solid var(--line);margin-top:15px;padding-top:16px}
+.lg-motion-controls strong{font-size:13px;color:var(--text);display:block}.lg-motion-controls small{display:block;color:var(--muted);font-size:11px;line-height:1.5;margin-top:4px;max-width:330px}
+.lg-motion-controls button[aria-pressed="true"]{border-color:var(--accent)}
+body.lg-motion-off .lg-ambient-layer{visibility:hidden}
+body.lg-motion-off #app::before{transform:none!important}
+body.lg-motion-off .nature-ornament{animation:none!important;transform:none!important}
+body.lg-gsap-unavailable:not(.lg-motion-off) .lg-leaf{animation:lgSway 12s ease-in-out infinite alternate}body.lg-gsap-unavailable:not(.lg-motion-off) .lg-wave{animation:lgDrift 15s ease-in-out infinite alternate}body.lg-gsap-unavailable:not(.lg-motion-off) .lg-sun{animation:lgRotate 30s linear infinite}body.lg-gsap-unavailable:not(.lg-motion-off) .lg-star{animation:lgTwinkle 6s ease-in-out infinite alternate}
+@keyframes lgSway{to{transform:rotate(6deg) translateY(9px)}}@keyframes lgDrift{to{transform:translateX(40px)}}@keyframes lgRotate{to{transform:rotate(30deg)}}@keyframes lgTwinkle{to{opacity:.13}}
+@media(prefers-reduced-motion:reduce){.lg-ambient-layer{visibility:hidden!important}.lg-ambient-element,.lg-star{animation:none!important}html{scroll-behavior:auto!important}}

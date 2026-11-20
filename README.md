@@ -1,6 +1,6 @@
-# LifeOS v3 — Living Nature (Major UI Refresh)
+# LifeOS v3 — Living Glass (Major UI + Motion Refresh)
 
-**Version: 3.0 · Visual system: Living Nature · App/data version unchanged**
+**Version: 3.0 · Visual system: Living Glass · App/data version unchanged**
 
 LifeOS is still **v3**. This release replaces the old Midnight Amber presentation with four approved, single-hue, nature-inspired themes while keeping the existing LifeOS functionality and cloud architecture.
 
@@ -25,6 +25,19 @@ LifeOS is still **v3**. This release replaces the old Midnight Amber presentatio
 
 The same visual system applies across Home, Planner, Journal, Track/Insights, Copilot, Review, Settings and timing dialogs; desktop sidebar and iPhone navigation are retained. Full-screen artwork is responsive; movement is lightweight and disabled when reduced motion is requested.
 
+
+## Living Glass — GSAP + ScrollTrigger
+
+This is still **LifeOS v3**. The new UI layer adds Balanced Glass to navigation, progress/next cards, welcome panel, dialogs and Copilot surfaces. The regular planner/activity cards remain mostly solid for legibility. Original full-screen botanical, ocean, solar and lunar SVG backgrounds are **preserved**.
+
+- `living-glass-v3.css` — glass tokens, accessible contrast, selective translucent surfaces and responsive layouts
+- `living-glass-v3.js` — GSAP ambient motifs, ScrollTrigger parallax and sun rotation, ring/entry/pop-up polish, visibility/reduced-motion controls
+- External dependencies: GSAP and ScrollTrigger are loaded from jsDelivr at runtime. **No npm install or ChatGPT plugin is necessary.** An offline/no-network CSS fallback leaves the site functional and the backgrounds visible.
+- In Settings → Living Nature themes, an **Ambient motion** preference enables/disables decorative animations. This preference is stored only on the current device (`lifeos.v3.glass.ambientMotion`). The OS's reduced-motion setting always wins.
+- The MagicPath interactive concept is a separate design prototype; it is **not** a replacement for this vanilla-JavaScript web app.
+
+**Important:** On the first visit, internet access is needed to load GSAP from the CDN; when blocked, all activity tracking, navigation, sync, and the themes remain operational with limited CSS ambience. For fully offline GSAP animations in a later release, vendor the official JavaScript files locally.
+
 ## Unchanged functionality
 
 - Clerk authentication, Cloudflare Worker and D1 cloud sync
@@ -45,7 +58,7 @@ Shared Spaces is not exposed in navigation. No previously stored records are del
 - `nature/*.svg` — 12 local vector artworks (desktop/mobile scenes and subtle card details)
 - `index.html` — new stylesheet and script imports; title and browser theme color
 - `app.js` — only three UI-related lines: theme button label, appearance button action and dark/light UI switch replaced by theme chooser. **No scheduling, sync or AI code changed.**
-- `sw.js`, `manifest.webmanifest` — new cache ID, theme files precached and app description updated
+- `sw.js`, `manifest.webmanifest` — updated cache ID, theme files precached and app description updated
 
 The previous `style.css`, `style-v3.css` and `motion-v3.js` are retained for compatible existing markup and interactions; the new CSS loads **after** them.
 
@@ -63,3 +76,7 @@ The previous `style.css`, `style-v3.css` and `motion-v3.js` are retained for com
 ## Verification scope
 
 Inline browser-mock tests validated the four themes, responsive widths, Today/Plan/Track/Copilot, Settings theme selector, modal presence and no runtime JS errors. These tests do **not** establish a live Clerk sign-in, live Cloudflare access or actual iPhone Safari performance. The uploaded archive includes no Cloudflare Worker code because the Worker isn't changed.
+
+## Living Glass visual QA
+
+Desktop/iPhone browser-mock checks validate theme selection, motion preference persistence, basic nav/dialogs and horizontal overflow. A real Clerk account and real Cloudflare sync are not emulated. GSAP/CDN motion needs a live-browser verification because the build container cannot access external CDNs.

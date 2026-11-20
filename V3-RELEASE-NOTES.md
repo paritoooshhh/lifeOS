@@ -1,3 +1,9 @@
+# LifeOS v3 — Living Glass UI/Motion Update
+
+**Still v3: no backend or schema migration.**
+
+Added Balanced Glass CSS layer, four ambient motion themes, optional GSAP/ScrollTrigger, offline animation fallback, reduced-motion/visibility handling and an on-device motion toggle. Original Living Nature art and all app.js/auth.js/ai.js code are unchanged.
+
 # LifeOS v3 — Living Nature UI Update
 
 **November 20, 2026 · Version 3.0 retained.**
