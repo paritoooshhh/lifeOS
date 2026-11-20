@@ -33,3 +33,6 @@ body.light{--bg:#f5f6f8;--panel:#ffffff;--panel2:#eef1f6;--text:#202736;--muted:
 #sharedNav[hidden]{display:none!important}
 .life-focus-grid .focus-tile strong{font-variant-numeric:tabular-nums}
 .ai-suggestion ul{padding-left:1.2rem;margin:.6rem 0}
+
+/* LifeOS 2.0.1 timing review */
+.timing-review{width:min(95vw,560px);max-height:90dvh;overflow-y:auto}.timing-review .tr-chips{display:flex;flex-wrap:wrap;gap:7px;margin:10px 0}.timing-review .tr-adjust{align-items:center;margin:16px 0}.timing-review .tr-adjust .sub{width:100%}.timing-review .tr-shortcuts{margin-top:14px}.timing-review #trReplacement{margin-top:14px}.timing-review .notice{margin:12px 0}.timing-review .actions{display:flex;flex-wrap:wrap;gap:10px;justify-content:flex-end}.timing-review input,.timing-review select{min-width:0;width:100%}

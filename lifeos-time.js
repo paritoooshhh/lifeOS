@@ -36,6 +36,8 @@
   if(intervals.length)return measuredMinutes(activity,day);
   const actual=Number(activity.actual);
   if(!Number.isFinite(actual)||actual<=0)return 0;
+  // Manually confirmed start/end are stronger evidence than scheduled windows.
+  if(activity.timingSource==='user_adjusted'&&activity.actualStartAt&&activity.actualEndAt){const a=Date.parse(activity.actualStartAt),b=Date.parse(activity.actualEndAt);if(Number.isFinite(a)&&Number.isFinite(b)&&b>a)return Math.round(sliceMinutes(a,b,day));}
   // Legacy logs can safely be split when their explicit wall interval equals their recorded duration.
   const span=scheduledInterval(activity);
   if(span&&Math.abs((span.end-span.start)/60000-actual)<0.6)return Math.round(sliceMinutes(span.start,span.end,day));
@@ -45,7 +47,7 @@
  function statusMetrics(activities){let done=0,planned=0,skipped=0,active=0;for(const a of activities){if(a.status==='completed')done++;else if(a.status==='skipped')skipped++;else if(a.status==='in_progress'||a.status==='paused')active++;else planned++;}return {done,planned,skipped,active,total:activities.length,percent:activities.length?Math.round(100*done/activities.length):0};}
  function scheduleVariance(activity){
   if(!activity||activity.status!=='completed'||!activity.completedAt)return null;
-  const span=scheduledInterval(activity),finished=Date.parse(activity.completedAt);
+  const span=scheduledInterval(activity),finished=Date.parse(activity.actualEndAt||activity.completedAt);
   if(!span||!Number.isFinite(finished))return null;
   // A completion tap made before an activity starts or long after it ended is a bookkeeping action, not a timing observation.
   if(finished<span.start||finished>span.end+5*60000)return null;
