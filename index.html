@@ -1,1 +1,112 @@
-<!doctype html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover"><meta name="theme-color" content="#0c1018"><meta name="apple-mobile-web-app-capable" content="yes"><meta name="apple-mobile-web-app-status-bar-style" content="black-translucent"><meta name="apple-mobile-web-app-title" content="LifeOS"><meta name="description" content="Your private personal life operating system"><link rel="manifest" href="manifest.webmanifest"><link rel="apple-touch-icon" href="icon-192.png"><link rel="icon" href="icon-192.png"><link rel="stylesheet" href="style.css"><title>LifeOS Midnight · Your life, in balance</title></head><body><div id="authGate" class="auth-gate"><div class="auth-card"><div class="brandmark">◈</div><h1>LifeOS</h1><p id="authStatus">Connecting securely…</p><div id="clerkSignIn"></div><button id="authRetry" class="secondary" hidden>Retry</button></div></div><div id="app" hidden><header class="top"><div class="brand"><span class="brandmark">◈</span><div><strong>LifeOS</strong><small>Your life, in balance</small></div></div><div class="topright"><button id="account" class="iconbtn" aria-label="Account">♙</button><button id="theme" class="iconbtn" aria-label="Toggle theme">☾</button><button id="sharedNav" class="iconbtn" aria-label="Shared spaces" title="Shared spaces" hidden>♧</button><button id="settings" class="iconbtn" aria-label="Data settings">⚙</button></div></header><main id="main"></main><nav id="nav" class="bottom" aria-label="Primary navigation"><button data-tab="home" class="active"><span>⌂</span>Today</button><button data-tab="planner"><span>▦</span>Plan</button><button data-tab="log"><span>＋</span>Log</button><button data-tab="track"><span>◫</span>Track</button><button data-tab="ai"><span>✦</span>AI</button><button data-tab="review"><span>◷</span>Review</button></nav></div><dialog id="modal"><form id="entryForm" method="dialog"><div class="modalhead"><h2 id="modalTitle">Add entry</h2><button type="button" id="closeModal" class="iconbtn">✕</button></div><div id="fields"></div><div class="actions"><button type="button" id="deleteEntry" class="danger" hidden>Delete</button><button type="submit" class="primary">Save entry</button></div></form></dialog><dialog id="timingReview" class="timing-review"><form id="trForm"><div class="modalhead"><h2 id="trHeading">Record activity</h2><button id="trCancel" type="button" class="iconbtn" aria-label="Close">✕</button></div><p class="sub" id="trExplanation"></p><div class="formgrid"><div class="field"><label for="trStartDate">Actual start date</label><input id="trStartDate" type="date" required></div><div class="field"><label for="trStart">Actual start time</label><input id="trStart" type="time" required></div><div class="field"><label for="trEndDate">Actual end date</label><input id="trEndDate" type="date" required></div><div class="field"><label for="trEnd">Actual end time</label><input id="trEnd" type="time" required></div></div><div id="trShortcuts" class="tr-shortcuts"><div class="field"><label for="trDirection">Adjust scheduled finish</label><select id="trDirection"><option value="early">Earlier</option><option value="late">Later</option></select></div><div class="tr-chips"><button type="button" class="secondary small" data-tr-offset="5">5m</button><button type="button" class="secondary small" data-tr-offset="10">10m</button><button type="button" class="secondary small" data-tr-offset="15">15m</button><button type="button" class="secondary small" data-tr-offset="20">20m</button><button type="button" class="secondary small" data-tr-offset="25">25m</button><button type="button" class="secondary small" data-tr-offset="30">30m</button><button type="button" class="secondary small" data-tr-offset="45">45m</button><button type="button" class="secondary small" data-tr-offset="50">50m</button></div></div><div class="tr-chips tr-adjust"><span class="sub">Fine-tune end time</span><button type="button" class="secondary small" data-tr-step="-5">−5m</button><button type="button" class="secondary small" data-tr-step="-1">−1m</button><button type="button" class="secondary small" data-tr-step="1">+1m</button><button type="button" class="secondary small" data-tr-step="5">+5m</button></div><p class="notice" aria-live="polite">Recorded duration: <strong id="trDuration">—</strong></p><div id="trReplacement" hidden><div class="field"><label for="trTitle">What did you do instead?</label><input id="trTitle" type="text" maxlength="150" placeholder="e.g. Studied Verilog"></div><div class="field"><label for="trCategory">Category</label><select id="trCategory"></select></div></div><div class="actions"><button id="trSkipOnly" type="button" class="secondary" hidden>Skip without logging</button><button id="trSave" type="submit" class="primary">Save</button></div></form></dialog><input id="sharedImportFile" type="file" accept="application/json,.json" hidden><input id="importFile" type="file" accept="application/json,.json" hidden><script src="config.js"></script><script src="lifeos-time.js"></script><script src="lifeos-domains.js"></script><script src="auth.js" defer></script></body></html>
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+  <meta name="theme-color" content="#080e14">
+  <meta name="color-scheme" content="dark light">
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+  <meta name="apple-mobile-web-app-title" content="LifeOS">
+  <meta name="description" content="LifeOS — your personal life operating system. Plan intentionally, live fully, reflect clearly.">
+  <meta name="application-name" content="LifeOS">
+  <link rel="manifest" href="manifest.webmanifest">
+  <link rel="icon" type="image/svg+xml" href="favicon.svg">
+  <link rel="icon" type="image/x-icon" sizes="any" href="favicon.ico">
+  <link rel="apple-touch-icon" href="apple-touch-icon.png">
+  <link rel="preload" href="lifeos-mark.svg" as="image" type="image/svg+xml">
+  <link rel="stylesheet" href="style.css">
+  <link rel="stylesheet" href="style-v3.css">
+  <title>LifeOS v3 · Midnight Motion</title>
+</head>
+<body>
+  <!-- One consistent, accessible SVG icon set for all navigation. -->
+  <svg class="v3-sprite" xmlns="http://www.w3.org/2000/svg" aria-hidden="true" focusable="false">
+    <symbol id="v3-home" viewBox="0 0 24 24"><path d="m3 10 9-7 9 7v10a1 1 0 0 1-1 1H4a1 1 0 0 1-1-1z"/><path d="M9 21v-8h6v8"/></symbol>
+    <symbol id="v3-calendar" viewBox="0 0 24 24"><rect x="3" y="5" width="18" height="16" rx="2"/><path d="M7 3v4m10-4v4M3 10h18"/><path d="m9 16 2 2 4-4"/></symbol>
+    <symbol id="v3-plus" viewBox="0 0 24 24"><path d="M12 5v14M5 12h14"/></symbol>
+    <symbol id="v3-track" viewBox="0 0 24 24"><circle cx="12" cy="12" r="9"/><path d="M12 7v5l3 2"/></symbol>
+    <symbol id="v3-sparkles" viewBox="0 0 24 24"><path d="m12 3 1.9 5.8L20 11l-6.1 2.2L12 19l-1.9-5.8L4 11l6.1-2.2zM19 18l.6 1.4L21 20l-1.4.6L19 22l-.6-1.4L17 20l1.4-.6z"/></symbol>
+    <symbol id="v3-chart" viewBox="0 0 24 24"><path d="M4 20V9m5 11V4m5 16v-7m5 7V8"/><path d="M2 20h20"/></symbol>
+    <symbol id="v3-settings" viewBox="0 0 24 24"><path d="M12 3v2m0 14v2M3 12h2m14 0h2M5.6 5.6 7 7m10 10 1.4 1.4M18.4 5.6 17 7M7 17l-1.4 1.4"/><circle cx="12" cy="12" r="5"/></symbol>
+    <symbol id="v3-user" viewBox="0 0 24 24"><circle cx="12" cy="8" r="4"/><path d="M4 21a8 8 0 0 1 16 0"/></symbol>
+    <symbol id="v3-close" viewBox="0 0 24 24"><path d="m6 6 12 12M18 6 6 18"/></symbol>
+    <symbol id="v3-check" viewBox="0 0 24 24"><path d="m4 12 5 5L20 6"/></symbol>
+    <symbol id="v3-arrow" viewBox="0 0 24 24"><path d="M5 12h14m-6-6 6 6-6 6"/></symbol>
+    <symbol id="v3-bell" viewBox="0 0 24 24"><path d="M18 8a6 6 0 0 0-12 0c0 7-3 8-3 9h18c0-1-3-2-3-9M10 21h4"/></symbol>
+  </svg>
+
+  <div id="authGate" class="auth-gate">
+    <div class="auth-card">
+      <img class="v3-auth-icon" src="lifeos-icon.svg" width="80" height="80" alt="LifeOS Stacked L logo">
+      <p class="v3-auth-eyebrow">YOUR PERSONAL LIFE OPERATING SYSTEM</p>
+      <h1>LifeOS<span class="v3-auth-edition"> v3</span></h1>
+      <p id="authStatus">Connecting securely…</p>
+      <div id="clerkSignIn"></div>
+      <button id="authRetry" class="secondary" hidden>Try again</button>
+      <p class="v3-auth-footnote">Plan with intention. Make room for life.</p>
+    </div>
+  </div>
+
+  <div id="app" hidden>
+    <a class="v3-skip-link" href="#main">Skip to content</a>
+    <header class="top" role="banner">
+      <div class="brand">
+        <img class="brand-logo" src="lifeos-mark.svg" alt="" width="44" height="44">
+        <div class="brand-copy"><strong>LifeOS</strong><small>YOUR SPACE, YOUR PACE</small></div>
+      </div>
+      <div class="v3-sidebar-caption" aria-hidden="true"><span class="v3-online-dot"></span> YOUR PERSONAL SPACE</div>
+      <div class="topright">
+        <button id="account" class="iconbtn" aria-label="Account and sign out" title="Account"><svg class="v3-icon"><use href="#v3-user"></use></svg></button>
+        <button id="theme" class="iconbtn" aria-label="Toggle light and dark appearance" title="Toggle theme">☾</button>
+        <button id="sharedNav" class="iconbtn" aria-label="Shared spaces" title="Shared spaces" hidden>♧</button>
+        <button id="settings" class="iconbtn" aria-label="Settings and backups" title="Settings"><svg class="v3-icon"><use href="#v3-settings"></use></svg></button>
+      </div>
+      <div class="v3-sidebar-footer" aria-hidden="true"><span>LifeOS <b>v3.0</b></span><span>Midnight Motion</span></div>
+    </header>
+
+    <main id="main" tabindex="-1" aria-label="LifeOS dashboard"></main>
+
+    <nav id="nav" class="bottom" aria-label="Primary navigation">
+      <button type="button" data-tab="home" class="active" aria-label="Today" title="Today"><svg class="v3-icon"><use href="#v3-home"></use></svg><span>Today</span></button>
+      <button type="button" data-tab="planner" aria-label="Plan" title="Plan"><svg class="v3-icon"><use href="#v3-calendar"></use></svg><span>Plan</span></button>
+      <button type="button" data-tab="log" class="v3-log-tab" aria-label="Log an activity" title="Log"><svg class="v3-icon"><use href="#v3-plus"></use></svg><span>Log</span></button>
+      <button type="button" data-tab="track" aria-label="Track and Insights" title="Track"><svg class="v3-icon"><use href="#v3-track"></use></svg><span>Track</span></button>
+      <button type="button" data-tab="ai" aria-label="AI Copilot" title="AI Copilot"><svg class="v3-icon"><use href="#v3-sparkles"></use></svg><span>Copilot</span></button>
+      <button type="button" data-tab="review" aria-label="Review" title="Review"><svg class="v3-icon"><use href="#v3-chart"></use></svg><span>Review</span></button>
+    </nav>
+  </div>
+
+  <dialog id="modal" class="v3-dialog" aria-labelledby="modalTitle">
+    <form id="entryForm" method="dialog">
+      <div class="v3-sheet-handle" aria-hidden="true"></div>
+      <div class="modalhead"><div><p class="v3-modal-eyebrow">LIFEOS · YOUR RECORDS</p><h2 id="modalTitle">Add entry</h2></div><button type="button" id="closeModal" class="iconbtn v3-close-button" aria-label="Close dialog"><svg class="v3-icon"><use href="#v3-close"></use></svg></button></div>
+      <div id="fields"></div>
+      <div class="actions"><button type="button" id="deleteEntry" class="danger" hidden>Delete</button><button type="submit" class="primary">Save entry <svg class="v3-icon v3-inline-icon"><use href="#v3-check"></use></svg></button></div>
+    </form>
+  </dialog>
+
+  <dialog id="timingReview" class="timing-review v3-dialog" aria-labelledby="trHeading">
+    <form id="trForm">
+      <div class="v3-sheet-handle" aria-hidden="true"></div>
+      <div class="modalhead"><div><p class="v3-modal-eyebrow">ACTIVITY TIME REVIEW</p><h2 id="trHeading">Record activity</h2></div><button id="trCancel" type="button" class="iconbtn v3-close-button" aria-label="Close dialog"><svg class="v3-icon"><use href="#v3-close"></use></svg></button></div>
+      <p class="sub" id="trExplanation"></p>
+      <div class="v3-time-panel"><div class="formgrid"><div class="field"><label for="trStartDate">Actual start date</label><input id="trStartDate" type="date" required></div><div class="field"><label for="trStart">Actual start time</label><input id="trStart" type="time" required></div><div class="field"><label for="trEndDate">Actual end date</label><input id="trEndDate" type="date" required></div><div class="field"><label for="trEnd">Actual end time</label><input id="trEnd" type="time" required></div></div></div>
+      <div id="trShortcuts" class="tr-shortcuts"><div class="field"><label for="trDirection">Time adjustment</label><select id="trDirection"><option value="early">Earlier than scheduled</option><option value="late">Later than scheduled</option></select></div><div class="tr-chips"><button type="button" class="secondary small" data-tr-offset="5">5m</button><button type="button" class="secondary small" data-tr-offset="10">10m</button><button type="button" class="secondary small" data-tr-offset="15">15m</button><button type="button" class="secondary small" data-tr-offset="20">20m</button><button type="button" class="secondary small" data-tr-offset="25">25m</button><button type="button" class="secondary small" data-tr-offset="30">30m</button><button type="button" class="secondary small" data-tr-offset="45">45m</button><button type="button" class="secondary small" data-tr-offset="50">50m</button></div></div>
+      <div class="tr-chips tr-adjust"><span class="sub">Fine-tune end time</span><button type="button" class="secondary small" data-tr-step="-5">−5m</button><button type="button" class="secondary small" data-tr-step="-1">−1m</button><button type="button" class="secondary small" data-tr-step="1">+1m</button><button type="button" class="secondary small" data-tr-step="5">+5m</button></div>
+      <div class="v3-duration-result" aria-live="polite"><div class="v3-result-icon"><svg class="v3-icon"><use href="#v3-track"></use></svg></div><div><span>CONFIRMED DURATION</span><strong id="trDuration">—</strong></div></div>
+      <div id="trReplacement" hidden><div class="field"><label for="trTitle">What did you do instead?</label><input id="trTitle" type="text" maxlength="150" placeholder="e.g. Studied Verilog"></div><div class="field"><label for="trCategory">Category</label><select id="trCategory"></select></div></div>
+      <div class="actions"><button id="trSkipOnly" type="button" class="secondary" hidden>Skip without logging</button><button id="trSave" type="submit" class="primary">Save</button></div>
+    </form>
+  </dialog>
+
+  <div id="v3ToastRegion" class="v3-toast-region" aria-live="polite" aria-atomic="true"></div>
+  <input id="sharedImportFile" type="file" accept="application/json,.json" hidden>
+  <input id="importFile" type="file" accept="application/json,.json" hidden>
+  <script src="config.js"></script>
+  <script src="lifeos-time.js"></script>
+  <script src="lifeos-domains.js"></script>
+  <script src="motion-v3.js"></script>
+  <script src="auth.js" defer></script>
+</body>
+</html>

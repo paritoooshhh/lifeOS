@@ -1,37 +1,53 @@
-# LifeOS Midnight — v2.0 Foundation
+# LifeOS v3 — Midnight Motion
 
-**Important:** This release has a companion Cloudflare Worker upgrade. Read [LIFEOS-V2-DEPLOY-GUIDE.md](LIFEOS-V2-DEPLOY-GUIDE.md) before deploying.
+**Version:** 3.0 · **Theme:** Midnight Amber · **Logo:** Balanced Stacked L
 
-# LifeOS — local-first personal dashboard
+Your existing LifeOS 2.1 planning, activity timing, skipped-activity replacement logs, AI Copilot, 13 life domains, and Clerk/Cloudflare cloud sync are preserved. This release updates the frontend visual and motion system only.
 
-## Run locally
+## Deploy to GitHub Pages
 
-In the `lifeos` directory:
+1. **Back up your current records** using LifeOS **Settings → Export backup** before publishing.
+2. Unzip `LifeOS-v3-GitHub-Ready.zip` and copy **the contents** (not the containing folder) to the root of your existing [`lifeOS`](https://github.com/paritoooshhh/lifeOS) GitHub repository.
+3. Keep the existing GitHub Pages configuration (typically **main / root**). Commit the changes and wait for GitHub Pages to publish.
+4. Open **https://paritoooshhh.github.io/lifeOS/** on your computer and iPhone. Reload to receive the new app files. If a stale icon remains on the iPhone Home Screen, remove and re-add the Home Screen shortcut *after confirming your records are synced*. Do **not** clear Safari website data as a cache workaround.
 
-```bash
-python3 -m http.server 8080
-```
+No changes to the Cloudflare Worker or D1 database are required. The existing public Clerk publishable key and Worker URL remain in `config.js`; never put a secret key in the frontend.
 
-Open http://localhost:8080 in your computer browser. Entries persist in that browser's localStorage.
+## What's new
 
-## Publish for iPhone
+- **Balanced Stacked L** logo, 192/512 PWA icons, favicons, Apple touch icon and scalable SVG brand assets.
+- **Midnight Amber** design tokens, premium progress rings, responsive desktop sidebar and floating mobile navigation.
+- **Animated native dialogs:** iPhone bottom sheets, desktop centered popups, backdrop blur, animated exits, accessible keyboard dismissal.
+- **Completion timing UX:** beautiful date/time fields, 5/10/15/20/25/30/45/50-minute earlier/later presets, ±1 and ±5-minute tuning, recorded duration preview.
+- **Skipped activities:** the original event stays skipped while the user can log what they actually did instead.
+- **Interactions:** page transitions, smooth progress ring changes, activity confirmation toasts, consistent hover/press states.
+- **Mixed icon system:** lightweight SVG line navigation plus original dimensional PNG illustrations for relevant areas and empty states.
+- **Accessibility:** reduced-motion support, high-visibility focus rings, semantic navigation, flexible layouts, safe-area insets.
+- **Light-mode compatibility** remains available; the default and recommended visual identity is Midnight Amber.
 
-Upload the *contents* of this folder to an HTTPS static host (e.g. GitHub Pages, Netlify or Cloudflare Pages). Keep `index.html`, `app.js`, `style.css`, `manifest.webmanifest`, `sw.js` and both icons together at the same URL path. Open the HTTPS URL in Safari, tap Share, Add to Home Screen, enable Open as Web App if available, and Add. Open once online so the service worker caches app files.
+## Files and responsibilities
 
-## Privacy and backups
+- `index.html` — app shell, accessible navigation and modal markup
+- `style.css` — original v2.1 styles, retained for compatibility
+- `style-v3.css` — all new v3 visual refinements and animations
+- `motion-v3.js` — UI-only animations, ring transitions and notifications
+- `app.js` — original LifeOS logic with minimal decorative hooks and save notifications
+- `ai.js`, `lifeos-domains.js`, `lifeos-time.js` — existing intelligence and time calculations
+- `auth.js`, `config.js` — existing sign-in, cloud integration and public configuration
+- `sw.js`, `manifest.webmanifest` — versioned PWA cache and icon configuration
+- `illustrations/*.png` — original soft-dimensional category art
 
-No server or account is used. Records are stored in localStorage on each browser/device. Export JSON from Settings regularly; Import replaces all current records. Data does not synchronize across devices. iOS may remove site data in some circumstances; backups are essential. Do not use private browsing for long-term storage.
+## Recommended post-deploy checks
 
-## Important conventions
+1. Log in on iPhone and desktop; confirm **existing records** are present.
+2. Visit Today, Plan, Log, Track → Insights, AI Copilot and Review.
+3. Mark an activity completed, adjust its time and verify the exact recorded duration in Time & Attention and Insights.
+4. Skip an activity, log a replacement, and verify the original stays skipped while the replacement counts as actual time.
+5. Plan an activity crossing midnight and verify the intended date split.
+6. Check cloud sync on both devices, then check appearance and popups on mobile and desktop.
 
-- Internship begins 2026-11-20 but hours are unconfirmed; no work hours are prepopulated.
-- All activity, finance, workout, and relationship records start empty.
-- Projects are prelisted with `Not started` and progress unset, not fabricated completion.
-- A completed planned activity counts toward the completion percentage; actual minutes must be entered separately.
-- The actual-time chart combines completed planned activities and standalone quick logs. Avoid logging the same time in both or it will be double-counted.
-- Overnight intervals should use manually entered actual minutes, with flexible start/end times.
-- Fitness logging records individual exercise entries; add another entry for each exercise if needed.
+## Verification note
 
-## Tech
+Local Node regression tests and mocked browser interaction tests passed for the v3 frontend. Those checks do **not** constitute a live check of your Clerk login, Cloudflare service, GitHub Pages deployment or data on your devices. Please complete the post-deploy checks above.
 
-Vanilla HTML/CSS/JavaScript, localStorage, Web App Manifest, cache-first service worker. No external dependencies or analytics. No backend or cross-device sync.
+The Cloudflare Worker is **not** included in the GitHub upload ZIP because it remains deployed separately and was not changed for v3.
