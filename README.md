@@ -1,53 +1,65 @@
-# LifeOS v3 — Midnight Motion
+# LifeOS v3 — Living Nature (Major UI Refresh)
 
-**Version:** 3.0 · **Theme:** Midnight Amber · **Logo:** Balanced Stacked L
+**Version: 3.0 · Visual system: Living Nature · App/data version unchanged**
 
-Your existing LifeOS 2.1 planning, activity timing, skipped-activity replacement logs, AI Copilot, 13 life domains, and Clerk/Cloudflare cloud sync are preserved. This release updates the frontend visual and motion system only.
+LifeOS is still **v3**. This release replaces the old Midnight Amber presentation with four approved, single-hue, nature-inspired themes while keeping the existing LifeOS functionality and cloud architecture.
 
-## Deploy to GitHub Pages
+## Install on your GitHub Pages site
 
-1. **Back up your current records** using LifeOS **Settings → Export backup** before publishing.
-2. Unzip `LifeOS-v3-GitHub-Ready.zip` and copy **the contents** (not the containing folder) to the root of your existing [`lifeOS`](https://github.com/paritoooshhh/lifeOS) GitHub repository.
-3. Keep the existing GitHub Pages configuration (typically **main / root**). Commit the changes and wait for GitHub Pages to publish.
-4. Open **https://paritoooshhh.github.io/lifeOS/** on your computer and iPhone. Reload to receive the new app files. If a stale icon remains on the iPhone Home Screen, remove and re-add the Home Screen shortcut *after confirming your records are synced*. Do **not** clear Safari website data as a cache workaround.
+1. **Back up your records** in LifeOS (**Settings → Export backup**) before deploying.
+2. Extract this ZIP. Upload **its contents** directly to the root of your existing [lifeOS repository](https://github.com/paritoooshhh/lifeOS). Do **not** upload the enclosing folder.
+3. Commit to the branch used for GitHub Pages (usually `main`). Existing Clerk and Cloudflare Worker settings remain in `config.js`.
+4. Visit <https://paritoooshhh.github.io/lifeOS/> on desktop and iPhone, reload, then verify your synced records and account.
+5. If you use the iPhone home-screen app and see stale styling, fully close and reopen it or refresh. Do **not** clear browser website data just to refresh the theme.
 
-No changes to the Cloudflare Worker or D1 database are required. The existing public Clerk publishable key and Worker URL remain in `config.js`; never put a secret key in the frontend.
+## The Living Nature system
 
-## What's new
+| Local device time | Theme | Palette | Scene | Minimal card accent |
+| --- | --- | --- | --- | --- |
+| 05:00–11:59 | **Kerala Green** | Green and its shades | Coconut palms, paddy landscape | Leaf detail |
+| 12:00–16:59 | **Ocean Blue** | Blue and its shades | Flowing water contours | Fine wave lines |
+| 17:00–20:59 | **Golden Hour** | Golden amber and its shades | Sunburst, horizon | Cropped sun arcs |
+| 21:00–04:59 | **Deep Indigo** | Indigo and its shades | Moon, orbits, stars | Tiny scattered stars |
 
-- **Balanced Stacked L** logo, 192/512 PWA icons, favicons, Apple touch icon and scalable SVG brand assets.
-- **Midnight Amber** design tokens, premium progress rings, responsive desktop sidebar and floating mobile navigation.
-- **Animated native dialogs:** iPhone bottom sheets, desktop centered popups, backdrop blur, animated exits, accessible keyboard dismissal.
-- **Completion timing UX:** beautiful date/time fields, 5/10/15/20/25/30/45/50-minute earlier/later presets, ±1 and ±5-minute tuning, recorded duration preview.
-- **Skipped activities:** the original event stays skipped while the user can log what they actually did instead.
-- **Interactions:** page transitions, smooth progress ring changes, activity confirmation toasts, consistent hover/press states.
-- **Mixed icon system:** lightweight SVG line navigation plus original dimensional PNG illustrations for relevant areas and empty states.
-- **Accessibility:** reduced-motion support, high-visibility focus rings, semantic navigation, flexible layouts, safe-area insets.
-- **Light-mode compatibility** remains available; the default and recommended visual identity is Midnight Amber.
+**Automatic mode** follows device-local time, checked every minute and when returning to the tab. Use the **◐ appearance button**, or **Settings → Living Nature themes**, to choose a manual override. The manual preference lives in a separate `localStorage` key (`lifeos.v3.nature.themePreference`) and does not enter cloud activity records.
 
-## Files and responsibilities
+The same visual system applies across Home, Planner, Journal, Track/Insights, Copilot, Review, Settings and timing dialogs; desktop sidebar and iPhone navigation are retained. Full-screen artwork is responsive; movement is lightweight and disabled when reduced motion is requested.
 
-- `index.html` — app shell, accessible navigation and modal markup
-- `style.css` — original v2.1 styles, retained for compatibility
-- `style-v3.css` — all new v3 visual refinements and animations
-- `motion-v3.js` — UI-only animations, ring transitions and notifications
-- `app.js` — original LifeOS logic with minimal decorative hooks and save notifications
-- `ai.js`, `lifeos-domains.js`, `lifeos-time.js` — existing intelligence and time calculations
-- `auth.js`, `config.js` — existing sign-in, cloud integration and public configuration
-- `sw.js`, `manifest.webmanifest` — versioned PWA cache and icon configuration
-- `illustrations/*.png` — original soft-dimensional category art
+## Unchanged functionality
 
-## Recommended post-deploy checks
+- Clerk authentication, Cloudflare Worker and D1 cloud sync
+- Original LifeOS local storage key and JSON data schema
+- Activities, calendar, timers, pause/resume, smart rescheduling
+- Midnight date rollover and overnight activity splitting
+- Explicit completion-time confirmation and fine-adjustment shortcuts
+- Skipped activities and optional actual-time replacement logs
+- AI Copilot proposal review/approval, time and domain analytics
+- PWA installation, export/import backup and offline asset caching
 
-1. Log in on iPhone and desktop; confirm **existing records** are present.
-2. Visit Today, Plan, Log, Track → Insights, AI Copilot and Review.
-3. Mark an activity completed, adjust its time and verify the exact recorded duration in Time & Attention and Insights.
-4. Skip an activity, log a replacement, and verify the original stays skipped while the replacement counts as actual time.
-5. Plan an activity crossing midnight and verify the intended date split.
-6. Check cloud sync on both devices, then check appearance and popups on mobile and desktop.
+Shared Spaces is not exposed in navigation. No previously stored records are deleted or migrated.
 
-## Verification note
+## What changed
 
-Local Node regression tests and mocked browser interaction tests passed for the v3 frontend. Those checks do **not** constitute a live check of your Clerk login, Cloudflare service, GitHub Pages deployment or data on your devices. Please complete the post-deploy checks above.
+- `nature-v3.css` — time-of-day theme tokens, responsive dashboards, component refinements and sidebar visual treatment
+- `nature-v3.js` — automatic/manual theme selection, presentation-only scroll movement and Settings theme chooser
+- `nature/*.svg` — 12 local vector artworks (desktop/mobile scenes and subtle card details)
+- `index.html` — new stylesheet and script imports; title and browser theme color
+- `app.js` — only three UI-related lines: theme button label, appearance button action and dark/light UI switch replaced by theme chooser. **No scheduling, sync or AI code changed.**
+- `sw.js`, `manifest.webmanifest` — new cache ID, theme files precached and app description updated
 
-The Cloudflare Worker is **not** included in the GitHub upload ZIP because it remains deployed separately and was not changed for v3.
+The previous `style.css`, `style-v3.css` and `motion-v3.js` are retained for compatible existing markup and interactions; the new CSS loads **after** them.
+
+## Recommended post-deploy test
+
+1. Sign in on computer and iPhone and confirm prior records.
+2. Try **◐ → Automatic / Morning / Afternoon / Evening / Night**; verify all screen backgrounds and card accents.
+3. On iPhone, ensure Today, Plan, Log, Track, Copilot and Review remain accessible in the floating bottom bar.
+4. On desktop, ensure sidebar links, theme panel, dialogs and scrollable timelines work.
+5. Complete a scheduled event with actual start/end time; confirm no time is invented.
+6. Skip an event and optionally log what you did instead.
+7. Verify an overnight event splits properly across midnight.
+8. Make a change on one device and verify sync on the other; export a backup first.
+
+## Verification scope
+
+Inline browser-mock tests validated the four themes, responsive widths, Today/Plan/Track/Copilot, Settings theme selector, modal presence and no runtime JS errors. These tests do **not** establish a live Clerk sign-in, live Cloudflare access or actual iPhone Safari performance. The uploaded archive includes no Cloudflare Worker code because the Worker isn't changed.

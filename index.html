@@ -3,8 +3,8 @@
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
-  <meta name="theme-color" content="#080e14">
-  <meta name="color-scheme" content="dark light">
+  <meta name="theme-color" content="#eaf3e5">
+  <meta name="color-scheme" content="light dark">
   <meta name="apple-mobile-web-app-capable" content="yes">
   <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
   <meta name="apple-mobile-web-app-title" content="LifeOS">
@@ -17,7 +17,8 @@
   <link rel="preload" href="lifeos-mark.svg" as="image" type="image/svg+xml">
   <link rel="stylesheet" href="style.css">
   <link rel="stylesheet" href="style-v3.css">
-  <title>LifeOS v3 · Midnight Motion</title>
+  <link rel="stylesheet" href="nature-v3.css">
+  <title>LifeOS v3 · Living Nature</title>
 </head>
 <body>
   <!-- One consistent, accessible SVG icon set for all navigation. -->
@@ -58,11 +59,11 @@
       <div class="v3-sidebar-caption" aria-hidden="true"><span class="v3-online-dot"></span> YOUR PERSONAL SPACE</div>
       <div class="topright">
         <button id="account" class="iconbtn" aria-label="Account and sign out" title="Account"><svg class="v3-icon"><use href="#v3-user"></use></svg></button>
-        <button id="theme" class="iconbtn" aria-label="Toggle light and dark appearance" title="Toggle theme">☾</button>
+        <button id="theme" class="iconbtn" aria-label="Choose nature theme" title="Choose nature theme">◐</button>
         <button id="sharedNav" class="iconbtn" aria-label="Shared spaces" title="Shared spaces" hidden>♧</button>
         <button id="settings" class="iconbtn" aria-label="Settings and backups" title="Settings"><svg class="v3-icon"><use href="#v3-settings"></use></svg></button>
       </div>
-      <div class="v3-sidebar-footer" aria-hidden="true"><span>LifeOS <b>v3.0</b></span><span>Midnight Motion</span></div>
+      <div class="v3-sidebar-footer" aria-hidden="true"><span>LifeOS <b>v3.0</b></span><span>Living Nature</span></div>
     </header>
 
     <main id="main" tabindex="-1" aria-label="LifeOS dashboard"></main>
@@ -107,6 +108,7 @@
   <script src="lifeos-time.js"></script>
   <script src="lifeos-domains.js"></script>
   <script src="motion-v3.js"></script>
+  <script src="nature-v3.js" defer></script>
   <script src="auth.js" defer></script>
 </body>
 </html>

@@ -1,29 +1,30 @@
-# LifeOS 3.0 — Midnight Motion
+# LifeOS v3 — Living Nature UI Update
 
-**Date:** 20 November 2026
+**November 20, 2026 · Version 3.0 retained.**
 
-## Design specification
+This is a **major UI refresh within v3**, not LifeOS v4. The existing data model, scheduling behaviors, AI Copilot and Clerk/Cloudflare infrastructure are preserved.
 
-- Brand: Balanced geometric Stacked L, amber gradient on near-black background
-- Palette: background `#080E14`, surface `#111827`, elevated `#1F293B`, primary `#F6A623`, highlight `#FFD58A`, success `#44D080`, info `#60A5FA`
-- Typography: system SF Pro Display where available, Inter/system fallback
-- Navigation: minimal stroked SVG icons; dimensional PNG art for selected contexts
-- Motion: dialog open ~320–340 ms, dialog exit ~180–190 ms, tab transition ~260 ms, ring interpolation ~800 ms; reduced motion respected
-- Mobile: safe-area-aware floating navigation and full-width bottom sheets
-- Desktop: fixed 246px sidebar with a spacious 12-column dashboard
+### Approved four-theme design
 
-## Compatibility
+- **Kerala Green / Morning (05:00–11:59):** lush, full-height coconut palms and soft green surfaces; one delicate leaf motif in prominent cards.
+- **Ocean Blue / Afternoon (12:00–16:59):** layered blue wave contours and fine wave-line card details.
+- **Golden Hour / Evening (17:00–20:59):** golden sun and horizon contours, subtle sun-arc cards.
+- **Deep Indigo / Night (21:00–04:59):** moon, orbits and sparse stars; understated stars inside cards.
 
-- Builds on LifeOS 2.1 Adaptive Insights source
-- Preserves `version: 1` record schema and existing localStorage keys
-- Preserves Cloudflare Worker/D1 API, Clerk configuration, time tracking, AI and 13 domains
-- No DB migration required; v3 is a presentation-only functional upgrade
+Each mode uses shades of one color family. The landscapes extend across the entire mobile/desktop viewport; cards retain high-contrast text and minimal decoration. The design is applied to all LifeOS views using shared CSS tokens, without removing app capabilities.
 
-## Local regression coverage
+### New UI interactions
 
-- Native JS unit suites: overnight activity allocation, explicit/manual timer provenance, completion review and offsets, skipped replacement logs, domain insights
-- Worker API integration suite: prompt validation, JWT/auth behavior, scoped planning requests and overnight proposals (unchanged Worker source)
-- Headless Chromium UI: desktop 1440×900, iPhone-like 402×874, smaller phone 360×740, tablet 810×1080; no JavaScript errors or horizontal viewport overflow
-- Interactive flows: navigation, popup open/close, ±1-minute adjustment, 15/30-minute presets, completion saving, skipped-activity replacement, Insights totals, theme toggling, entry dialog
+- Automatic mode from device-local time; optional persistent manual override
+- Theme chooser from appearance icon or Settings
+- Responsive illustrated full-screen backdrops, gentle scroll parallax and subtle scrolling ornament accents
+- Refined desktop sidebar, typography, progress ring, action buttons, floating mobile navigation and native dialogs
+- Reduced-motion support
 
-**Not tested:** a live production login or live cross-device Cloudflare sync. Those require deployment and account-specific verification.
+### Safe integration
+
+No changes to auth, AI, time engine, cloud database, Worker endpoints or user storage formats. Old theme preference is left in existing data for backward compatibility, but the Living Nature mode is stored separately on this device. Existing Clerk/D1 data remains intact. Always export a backup before updating GitHub Pages.
+
+### Local verification
+
+Browser-mock checks passed on 1440px desktop and 390px mobile for home, planner, track, Copilot, settings, theme switching, manual preference and modal controls. Live service integration requires verification on deployed accounts/devices.
